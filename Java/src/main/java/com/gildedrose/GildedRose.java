@@ -1,15 +1,34 @@
 package com.gildedrose;
 
 class GildedRose {
-    Item[] items;
+	Item[] items;
 
-    public GildedRose(Item[] items) {
-        this.items = items;
-    }
+	public GildedRose(Item[] items) {
+		this.items = items;
+	}
 
-    public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
+	public void updateQuality() {
+		ItemsFactory itemsFactory = new ItemsFactory();
+		for (int i = 0; i < items.length; i++) {				
+			//Call update method based on item type
+			if(items[i].name.equals("Aged Brie")) {
+				itemsFactory.new AgeBrie(items[i].name, items[i].sellIn, items[i].quality).update();			
+			}
+			else if(items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
+				itemsFactory.new sulfuras(items[i].name, items[i].sellIn, items[i].quality).update();
+			}
+			else if(items[i].name.equals("Conjured")) {
+				itemsFactory.new Conjured(items[i].name, items[i].sellIn, items[i].quality).update();
+			}
+			else if(items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+				itemsFactory.new BackstagePasses(items[i].name, items[i].sellIn, items[i].quality).update();
+			}
+			else {
+				itemsFactory.new Regular(items[i].name, items[i].sellIn, items[i].quality).update();
+			}		
+			
+			//Original code
+			/*if (!items[i].name.equals("Aged Brie")
                     && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
                 if (items[i].quality > 0) {
                     if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
@@ -56,7 +75,7 @@ class GildedRose {
                         items[i].quality = items[i].quality + 1;
                     }
                 }
-            }
-        }
-    }
+            }*/
+		}
+	}
 }
